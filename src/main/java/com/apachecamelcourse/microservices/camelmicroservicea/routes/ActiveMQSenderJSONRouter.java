@@ -3,12 +3,14 @@ package com.apachecamelcourse.microservices.camelmicroservicea.routes;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.stereotype.Component;
 
-//@Component
-public class MyFileRouter extends RouteBuilder {
+@Component
+public class ActiveMQSenderJSONRouter extends RouteBuilder {
+
+
     @Override
     public void configure() throws Exception {
-        from("file:files/input")
+        from("file:files/json")
                 .log("${body}")
-                .to("file:files/output");
+        .to("activemq:my-json-format-queue");
     }
 }
