@@ -5,8 +5,7 @@ spring:
   activemq:
     broker-url: tcp://localhost:61616?keepAlive=true
 
-
-#camel:
-#  component:
-#    activemq:
-#      broker-url: tcp://127.0.0.1:61616?keepAlive=true
+camel:
+  component:
+    kafka:
+      brokers: localhost:9092
