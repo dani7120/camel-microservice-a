@@ -4,8 +4,20 @@ server:
 spring:
   activemq:
     broker-url: tcp://localhost:61616?keepAlive=true
-
 camel:
   component:
     kafka:
       brokers: localhost:9092
+  springboot:
+    name: SampleCamel
+management:
+  endpoints:
+    web:
+      base-path: /admin
+      exposure:
+        include: hawtio,jolokia,health
+  server:
+    port: 9001
+
+hawtio:
+  authenticationEnabled: false
