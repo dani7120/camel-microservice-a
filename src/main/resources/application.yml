@@ -10,6 +10,8 @@ camel:
       brokers: localhost:9092
   springboot:
     name: SampleCamel
+
+### hawtio can be configured as actuator
 management:
   endpoints:
     web:
@@ -19,5 +21,6 @@ management:
   server:
     port: 9001
 
+## hawtio to disable authenthication
 hawtio:
   authenticationEnabled: false

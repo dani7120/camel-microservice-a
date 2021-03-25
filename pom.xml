@@ -49,6 +49,8 @@
 			<version>${camel.version}</version>
 		</dependency>
 
+
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -60,10 +62,18 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- add these two libraries -->
 		<dependency>
 			<groupId>io.hawt</groupId>
 			<artifactId>hawtio-springboot</artifactId>
 			<version>2.13.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-management</artifactId>
+			<version>${camel.version}</version>
 		</dependency>
 
 	</dependencies>
@@ -73,6 +83,41 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<!-- Add JAVAAGENT CONFIGURATION FOR HAWTIO -->
+				<configuration>
+					<mainClass> com.apachecamelcourse.microservices.camelmicroservicea.CamelMicroserviceAApplication</mainClass>
+					<jvmArguments>
+						-javaagent:./target/dependency/jmx_prometheus_javaagent.jar=10002:./jmx-exporter.yml
+					</jvmArguments>
+				</configuration>
+
+			</plugin>
+
+			<!-- downloads the Prometheus JMX exporter java agent -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>3.1.1</version>
+				<executions>
+					<execution>
+						<id>copy</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<artifactItems>
+						<artifactItem>
+							<groupId>io.prometheus.jmx</groupId>
+							<artifactId>jmx_prometheus_javaagent</artifactId>
+							<version>0.3.1</version>
+							<type>jar</type>
+							<destFileName>jmx_prometheus_javaagent.jar</destFileName>
+						</artifactItem>
+					</artifactItems>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

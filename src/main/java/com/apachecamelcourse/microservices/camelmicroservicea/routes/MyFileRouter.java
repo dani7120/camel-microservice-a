@@ -9,6 +9,7 @@ public class MyFileRouter extends RouteBuilder {
     public void configure() throws Exception {
         from("file:files/input")
                 .routeId("My File Router ")
+                .transform().body(String.class)
                 .choice()
                     .when(simple("${file:ext} ends with 'xml'")) // if
                         .log("XML FILE")
@@ -16,6 +17,7 @@ public class MyFileRouter extends RouteBuilder {
                         .log("NOT an XML FILE")
                 .end()
                 .log("${body}")
+                .log("${messageHistory}")
                 .to("file:files/output");
     }
 }
