@@ -14,3 +14,16 @@ hawtio
 
 config properties
 
+### hawtio can be configured as actuator
+management:
+  endpoints:
+    web:
+      base-path: /admin
+      exposure:
+        include: hawtio,jolokia,health
+  server:
+    port: 9001
+
+## hawtio to disable authenthication
+hawtio:
+  authenticationEnabled: false
